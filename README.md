@@ -1,1 +1,6 @@
-This repo is used for all the projects of the course "Mobile & Cloud Technologies" 2020 @ UniBg.
+This repository contains code and data for "Mobile & Cloud Technologies" course project, 2020 @ UniBg.
+
+
+# My TEDx Project
+
+Components:
