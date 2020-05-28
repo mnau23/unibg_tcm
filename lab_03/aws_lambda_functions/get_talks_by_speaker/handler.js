@@ -1,7 +1,7 @@
 const connect_to_db = require('./db');
 const talk = require('./talk');
 
-module.exports.get_by_tag = (event, context, callback) => {
+module.exports.get_by_speaker = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
     console.log('Received event:', JSON.stringify(event, null, 2));
     let body = {}
@@ -9,11 +9,11 @@ module.exports.get_by_tag = (event, context, callback) => {
         body = JSON.parse(event.body)
     }
     // set default
-    if(!body.tag) {
+    if(!body.speaker) {
         callback(null, {
-            statusCode: 500,
-            headers: { 'Content-Type': 'text/plain' },
-            body: 'Could not fetch the talks. Tag is null.'
+                    statusCode: 500,
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: 'Could not fetch the talks. Speaker is null.'
         })
     }
     
@@ -26,7 +26,7 @@ module.exports.get_by_tag = (event, context, callback) => {
     
     connect_to_db().then(() => {
         console.log('=> get_all talks');
-        talk.find({tags: body.tag})
+        talk.find({main_speaker: body.speaker})
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
             .then(talks => {
