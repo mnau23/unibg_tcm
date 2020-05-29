@@ -14,7 +14,7 @@ module.exports.get_by_title = (event, context, callback) => {
         callback(null, {
                     statusCode: 500,
                     headers: { 'Content-Type': 'text/plain' },
-                    body: 'Could not fetch the talks. Tag is null.'
+                    body: 'Could not fetch the talks. Title is null.'
         })
     }
     
