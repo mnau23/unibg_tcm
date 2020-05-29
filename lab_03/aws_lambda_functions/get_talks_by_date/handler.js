@@ -4,10 +4,12 @@ const talk = require('./talk');
 module.exports.get_by_date = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
     console.log('Received event:', JSON.stringify(event, null, 2));
+    
     let body = {}
     if (event.body) {
         body = JSON.parse(event.body)
     }
+    
     // set default
     if(!body.date) {
         callback(null, {
@@ -26,7 +28,7 @@ module.exports.get_by_date = (event, context, callback) => {
     
     connect_to_db().then(() => {
         console.log('=> get_all talks');
-        talk.find({posted: body.date})
+        talk.find({posted: {'$regex': body.date, '$options': 'i'} })
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
             .then(talks => {

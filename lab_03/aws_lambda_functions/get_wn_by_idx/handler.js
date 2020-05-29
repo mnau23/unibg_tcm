@@ -4,10 +4,12 @@ const talk = require('./talk');
 module.exports.get_by_id = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
     console.log('Received event:', JSON.stringify(event, null, 2));
+    
     let body = {}
     if (event.body) {
         body = JSON.parse(event.body)
     }
+
     // set default
     if(!body.identifier) {
         callback(null, {
@@ -26,7 +28,7 @@ module.exports.get_by_id = (event, context, callback) => {
     
     connect_to_db().then(() => {
         console.log('=> get_all talks');
-        talk.find({_id: body.identifier}).select('watch_next')
+        talk.find({_id: body.identifier}).select('_id main_speaker title watch_next')
             .skip((body.doc_per_page * body.page) - body.doc_per_page)
             .limit(body.doc_per_page)
             .then(talks => {
