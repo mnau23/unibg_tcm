@@ -1,4 +1,4 @@
-This repository contains code and data for "Mobile & Cloud Technologies" course project, 2020 @ UniBg.
+This repository contains code and data for **Mobile & Cloud Technologies** course project, 2020 @ [Università degli Studi di Bergamo](https://en.unibg.it/).
 
 
 # MyTEDx Project
